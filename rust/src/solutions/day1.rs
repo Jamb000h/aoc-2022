@@ -8,7 +8,7 @@ pub mod solution {
     }
 
     fn read_and_parse_input() -> Vec<String> {
-        crate::utils::read_operations::read_to_lines("./src/inputs/day1.txt")
+        crate::utils::read_operations::read_to_lines("../inputs/day1.txt")
     }
 
     fn wrangle_input(input: Vec<String>) -> Vec<Vec<i32>> {

@@ -4,6 +4,10 @@ My solutions for AoC 2022
 
 Days done (hopefully) in both TypeScript and Rust.
 
+## Inputs
+
+Put inputs into `inputs` folder with a name `<day>.txt`.
+
 ## Rust
 
 Solutions can be found in `rust` folder. Run with `cargo run`.
