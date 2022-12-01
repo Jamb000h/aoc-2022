@@ -6,7 +6,7 @@ Days done (hopefully) in both TypeScript and Rust.
 
 ## Inputs
 
-Put inputs into `inputs` folder with a name `<day>.txt`.
+Put inputs into `inputs` folder as `day<dayNumber>.txt`, e.g. `day1.txt`
 
 ## Rust
 
