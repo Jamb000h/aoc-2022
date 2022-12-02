@@ -1,44 +1,20 @@
-pub mod solution {
+use itertools::Itertools;
 
-    pub fn solve() {
-        let input = read_and_parse_input();
-        let elves = wrangle_input(input);
-        self::part_1(&elves);
-        self::part_2(&elves);
-    }
+pub fn parse_input(input: String) -> Vec<i32> {
+    input
+        .lines()
+        .map(|x| x.parse::<i32>().unwrap_or(0))
+        .group_by(|x| x > &0)
+        .into_iter()
+        .map(|(_, x)| x.into_iter().sum())
+        .collect()
+}
 
-    fn read_and_parse_input() -> Vec<String> {
-        crate::utils::read_operations::read_to_lines("../inputs/day1.txt")
-    }
+pub fn part_1(elves: &Vec<i32>) -> i32 {
+    elves.iter().max().unwrap().to_owned()
+}
 
-    fn wrangle_input(input: Vec<String>) -> Vec<Vec<i32>> {
-        let mut elves = Vec::new();
-        let mut elf = Vec::new();
-        for row in input {
-            if row.len() == 0 {
-                elves.push(elf);
-                elf = Vec::new();
-            } else {
-                elf.push(row.parse::<i32>().unwrap())
-            }
-        }
-        elves.push(elf);
-        elves
-    }
-
-    fn part_1(elves: &Vec<Vec<i32>>) {
-        let largest: i32 = elves
-            .iter()
-            .map(|elf| elf.iter().sum::<i32>())
-            .max()
-            .unwrap();
-        println!("Day 1 part 1: {}", largest)
-    }
-
-    fn part_2(elves: &Vec<Vec<i32>>) {
-        let mut largest: Vec<i32> = elves.iter().map(|elf| elf.iter().sum::<i32>()).collect();
-        largest.sort();
-        let top_three_sum: i32 = largest.iter().rev().take(3).sum();
-        println!("Day 1 part 2: {}", top_three_sum)
-    }
+pub fn part_2(elves: &mut Vec<i32>) -> i32 {
+    elves.sort();
+    elves.iter().rev().take(3).sum()
 }
