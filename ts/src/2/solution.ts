@@ -1,24 +1,17 @@
 import { getLines } from "../utils";
 
-type Row = [String, String];
 type RPS = "R" | "P" | "S";
 type Round = [RPS, RPS];
 
-export const parseInputForDay = (file: string): Round[] => {
-  return normalizeInputs(
-    getLines(file).map((row) => row.split(" ")) as unknown as Row[]
-  );
-};
+export const parseInputForDay = (file: string): Round[] =>
+  getLines(file).map(rowToRound);
 
-export const task1 = (rounds: Round[]) => rounds.map(getScore).sum();
+export const task1 = (rounds: Round[]) => rounds.map(getRoundScore).sum();
 
 export const task2 = (rounds: Round[]) =>
-  rounds.map(fixMove).map(getScore).sum();
+  rounds.map(fixMove).map(getRoundScore).sum();
 
-const normalizeInputs = (inputs: Row[]): Round[] =>
-  inputs.map((row) => {
-    return row.map(normalizeInput) as Round;
-  });
+const rowToRound = (row: string) => row.split(" ").map(normalizeInput) as Round;
 
 const normalizeInput = (input: String): RPS => {
   switch (input) {
@@ -33,11 +26,9 @@ const normalizeInput = (input: String): RPS => {
   }
 };
 
-const getScore = (round: Round): number => {
+const getRoundScore = (round: Round): number => {
   const [_, you] = round;
-  const shapeScore = getShapeScore(you);
-  const resultScore = getResultScore(round);
-  return shapeScore + resultScore;
+  return getShapeScore(you) + getResultScore(round);
 };
 
 const getShapeScore = (shape: RPS) => {
