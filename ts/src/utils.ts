@@ -129,9 +129,10 @@ declare global {
   interface Array<T> {
     sortAscending(): Array<T>;
     sortDescending(): Array<T>;
-    sum(): Array<number>;
+    sum(): number;
     take(n: number): Array<T>;
     chunks<T>(n: number): Array<Array<T>>;
+    groupBy<T>(pred: (x: T) => boolean): Array<Array<T>>;
   }
 }
 
@@ -149,6 +150,25 @@ Array.prototype.take = function (n: number) {
 
 Array.prototype.sum = function () {
   return this.reduce((prev: number, cur: number) => prev + cur, 0);
+};
+
+Array.prototype.groupBy = function <T>(pred: (x: T) => boolean) {
+  if (this.length < 1) {
+    return [];
+  }
+
+  const groups = [[]];
+  let prevResult = pred(this[0]);
+
+  this.forEach((x) => {
+    if (pred(x) !== prevResult) {
+      groups.push([]);
+      prevResult = pred(x);
+    }
+    groups.at(-1).push(x);
+  });
+
+  return groups;
 };
 
 Array.prototype.chunks = function (n: number) {

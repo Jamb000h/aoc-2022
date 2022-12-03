@@ -10,14 +10,10 @@ export const parseInputForDay = (file: string): Round[] => {
   );
 };
 
-export const task1 = (input: Round[]) =>
-  input.map(getScore).reduce((prev, cur) => prev + cur, 0);
+export const task1 = (rounds: Round[]) => rounds.map(getScore).sum();
 
-export const task2 = (input: Round[]) =>
-  input
-    .map(fixMove)
-    .map(getScore)
-    .reduce((prev, cur) => prev + cur, 0);
+export const task2 = (rounds: Round[]) =>
+  rounds.map(fixMove).map(getScore).sum();
 
 const normalizeInputs = (inputs: Row[]): Round[] =>
   inputs.map((row) => {
