@@ -129,7 +129,9 @@ declare global {
   interface Array<T> {
     sortAscending(): Array<T>;
     sortDescending(): Array<T>;
+    sum(): Array<number>;
     take(n: number): Array<T>;
+    chunks<T>(n: number): Array<Array<T>>;
   }
 }
 
@@ -143,4 +145,26 @@ Array.prototype.sortDescending = function () {
 
 Array.prototype.take = function (n: number) {
   return this.slice(0, n);
+};
+
+Array.prototype.sum = function () {
+  return this.reduce((prev: number, cur: number) => prev + cur, 0);
+};
+
+Array.prototype.chunks = function (n: number) {
+  if (this.length % n !== 0) {
+    throw Error("Cannot chunk array as its length is not divisible by " + n);
+  }
+
+  const chunks = [[]];
+
+  this.forEach((x) => {
+    if (chunks.at(-1).length === n) {
+      chunks.push([]);
+    }
+
+    chunks.at(-1).push(x);
+  });
+
+  return chunks;
 };
