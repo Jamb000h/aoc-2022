@@ -91,6 +91,21 @@ export const generateEmptyVisited = (grid: any[][]): boolean[][] => {
   return visited;
 };
 
+export const pivot = (arrs: any[][]): any[][] => {
+  const pivoted = Array.from(
+    { length: Math.max(...arrs.map((arr) => arr.length)) },
+    () => []
+  );
+
+  for (const arr of arrs) {
+    arr.forEach((elem, i) => {
+      pivoted[i].push(elem);
+    });
+  }
+
+  return pivoted;
+};
+
 export const bfs = (
   y: number,
   x: number,

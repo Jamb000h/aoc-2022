@@ -52,7 +52,7 @@ if (!existsSync(inputPath)) {
   process.exit(0);
 }
 
-const inputFile = readFileSync(inputPath, "utf-8").trim();
+const inputFile = readFileSync(inputPath, "utf-8");
 if (inputFile.length === 0) {
   console.log("Input file for day", day, "is empty!");
   process.exit(0);
