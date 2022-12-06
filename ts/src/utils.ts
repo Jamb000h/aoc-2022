@@ -148,6 +148,7 @@ declare global {
     take(n: number): Array<T>;
     chunks<T>(n: number): Array<Array<T>>;
     groupBy<T>(pred: (x: T) => boolean): Array<Array<T>>;
+    windows<T>(size: number): Array<Array<T>>;
   }
 }
 
@@ -202,4 +203,28 @@ Array.prototype.chunks = function (n: number) {
   });
 
   return chunks;
+};
+
+Array.prototype.windows = function (size: number) {
+  if (size < 1) {
+    throw Error("Window size needs to be at least 1");
+  }
+
+  if (size > this.length) {
+    throw Error(
+      "Window size needs to be at most the length of the given array"
+    );
+  }
+
+  if (this.length < 1) {
+    return [];
+  }
+
+  const w = [];
+
+  for (let lower = 0, upper = size - 1; upper < this.length; lower++, upper++) {
+    w.push(this.slice(lower, upper + 1));
+  }
+
+  return w;
 };
