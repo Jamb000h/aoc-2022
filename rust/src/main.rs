@@ -13,6 +13,9 @@ mod day4;
 #[path = "solutions/day5.rs"]
 mod day5;
 
+#[path = "solutions/day6.rs"]
+mod day6;
+
 fn main() {
     // Day 1
     let mut input_1 = day1::parse_input(
@@ -48,4 +51,11 @@ fn main() {
     );
     println!("Day 5 part 1: {}", day5::part_1(&input_5));
     println!("Day 5 part 2: {}", day5::part_2(&input_5));
+
+    // Day 6
+    let input_6 = day6::parse_input(
+        std::fs::read_to_string("../inputs/day6.txt").expect("Failed to read day 6 input"),
+    );
+    println!("Day 6 part 1: {}", day6::part_1(&input_6));
+    println!("Day 6 part 2: {}", day6::part_2(&input_6));
 }

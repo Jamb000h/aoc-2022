@@ -16,7 +16,6 @@ pub fn parse_input(input: String) -> (Vec<Vec<char>>, Vec<(u32, u32, u32)>) {
                     stacks.push(Vec::new());
                 }
                 if c.is_alphabetic() {
-                    println!("{}", c);
                     stacks.get_mut((j / 4) as usize).unwrap().push(c);
                 }
             })
