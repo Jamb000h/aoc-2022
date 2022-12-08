@@ -145,6 +145,7 @@ declare global {
     sortAscending(): Array<T>;
     sortDescending(): Array<T>;
     sum(): number;
+    product(): number;
     take(n: number): Array<T>;
     chunks<T>(n: number): Array<Array<T>>;
     groupBy<T>(pred: (x: T) => boolean): Array<Array<T>>;
@@ -166,6 +167,10 @@ Array.prototype.take = function (n: number) {
 
 Array.prototype.sum = function () {
   return this.reduce((prev: number, cur: number) => prev + cur, 0);
+};
+
+Array.prototype.product = function () {
+  return this.reduce((prev: number, cur: number) => prev * cur, 1);
 };
 
 Array.prototype.groupBy = function <T>(pred: (x: T) => boolean) {
