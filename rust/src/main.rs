@@ -22,9 +22,12 @@ mod day7;
 #[path = "solutions/day8.rs"]
 mod day8;
 
+<<<<<<< HEAD
 #[path = "solutions/day9.rs"]
 mod day9;
 
+=======
+>>>>>>> 1c0ee7085eb90570f687babea89f453e5979e3f4
 fn main() {
     // Day 1
     let mut input_1 = day1::parse_input(
