@@ -58,44 +58,25 @@ fn move_knot(head_pos: (i32, i32), tail_pos: (i32, i32)) -> (i32, i32) {
     }
 
     let (head_y, head_x) = head_pos;
-    let (tail_y, tail_x) = tail_pos;
+    let (mut tail_y, mut tail_x) = tail_pos;
 
-    // Same row
-    if head_y == tail_y {
-        if head_x < tail_x {
-            return (tail_y, tail_x - 1);
-        } else {
-            return (tail_y, tail_x + 1);
-        }
+    if head_x < tail_x {
+        tail_x -= 1;
     }
 
-    // Same column
-    if head_x == tail_x {
-        if head_y < tail_y {
-            return (tail_y - 1, tail_x);
-        } else {
-            return (tail_y + 1, tail_x);
-        }
+    if head_x > tail_x {
+        tail_x += 1;
     }
 
-    // Diagonals
-    // Bottom left
-    if head_y < tail_y && head_x < tail_x {
-        return (tail_y - 1, tail_x - 1);
+    if head_y < tail_y {
+        tail_y -= 1;
     }
 
-    // Bottom right
-    if head_y < tail_y && head_x > tail_x {
-        return (tail_y - 1, tail_x + 1);
+    if head_y > tail_y {
+        tail_y += 1;
     }
 
-    // Top left
-    if head_y > tail_y && head_x < tail_x {
-        return (tail_y + 1, tail_x - 1);
-    }
-
-    // Top right
-    (tail_y + 1, tail_x + 1)
+    (tail_y, tail_x)
 }
 
 fn are_touching(pos1: (i32, i32), pos2: (i32, i32)) -> bool {
