@@ -63,12 +63,18 @@ export const neighbors3D = (
   y: number,
   x: number,
   z: number,
-  grid: any[][][]
+  grid: any[][][],
+  diagonal: boolean = false
 ): number[][] => {
   const neighbors = [];
   for (let ny = y - 1; ny <= y + 1; ny++) {
     for (let nx = x - 1; nx <= x + 1; nx++) {
       for (let nz = z - 1; nz <= z + 1; nz++) {
+        if (!diagonal) {
+          if (ny > y && (nx !== x || nz !== z)) continue;
+          if (ny < y && (nx !== x || nz !== z)) continue;
+          if (ny === y && nx !== x && nz !== z) continue;
+        }
         if (ny === y && nx === x && nz === z) continue;
         if (inBounds3D(ny, nx, nz, grid)) {
           neighbors.push([ny, nx, nz]);
@@ -85,6 +91,21 @@ export const generateEmptyVisited = (grid: any[][]): boolean[][] => {
     visited.push([]);
     for (let x = 0; x < grid[y].length; x++) {
       visited[y].push(false);
+    }
+  }
+
+  return visited;
+};
+
+export const generateEmptyVisited3D = (grid: any[][][]): boolean[][][] => {
+  const visited = [];
+  for (let y = 0; y < grid.length; y++) {
+    visited.push([]);
+    for (let x = 0; x < grid[y].length; x++) {
+      visited[y].push([]);
+      for (let z = 0; z < grid[y][x].length; z++) {
+        visited[y][x].push(false);
+      }
     }
   }
 
@@ -132,6 +153,51 @@ export const bfs = (
     }
 
     const neighbors = neighbors2D(currentY, currentX, grid, diagonal);
+    neighbors.forEach((n) => queue.push(n));
+  }
+  return {
+    V,
+    target,
+  };
+};
+
+export const bfs3D = (
+  y: number,
+  x: number,
+  z: number,
+  grid: any[][][],
+  visited: boolean[][][],
+  diagonal: boolean = false,
+  predicate?: (y: number, x: number, z: number, grid: any[][][]) => any,
+  skip?: (y: number, x: number, z: number, grid: any[][][]) => any
+) => {
+  const V = [];
+  let target = null;
+  const queue = [[y, x, z]];
+  while (queue.length > 0) {
+    const [currentY, currentX, currentZ] = queue.shift();
+    if (visited[currentY][currentX][currentZ]) continue;
+    visited[currentY][currentX][currentZ] = true;
+
+    // Collect visited vertices for problems that require reachable area
+    V.push([currentY, currentX, currentZ]);
+
+    // Early break for problems that have a defined target
+    if (!!predicate && predicate(currentY, currentX, currentZ, grid)) {
+      target = [currentY, currentX, currentZ];
+      break;
+    }
+
+    const potentialNeighbors = neighbors3D(
+      currentY,
+      currentX,
+      currentZ,
+      grid,
+      diagonal
+    );
+    const neighbors = skip
+      ? potentialNeighbors.filter(([nY, nX, nZ]) => !skip(nY, nX, nZ, grid))
+      : potentialNeighbors;
     neighbors.forEach((n) => queue.push(n));
   }
   return {
