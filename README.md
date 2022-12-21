@@ -20,13 +20,13 @@ Days done (hopefully) in both Rust and TypeScript.
 | 12  | :heavy_check_mark: | :heavy_check_mark: |
 | 13  |                    | :heavy_check_mark: |
 | 14  | :heavy_check_mark: | :heavy_check_mark: |
-| 15  |                    |                    |
-| 16  |                    |                    |
+| 15  |                    | :heavy_check_mark: |
+| 16  |                    | :heavy_check_mark: |
 | 17  |                    |                    |
-| 18  |                    |                    |
-| 19  |                    |                    |
-| 20  |                    |                    |
-| 21  |                    |                    |
+| 18  |                    | :heavy_check_mark: |
+| 19  |                    | :heavy_check_mark: |
+| 20  |                    | :heavy_check_mark: |
+| 21  |                    | :heavy_check_mark: |
 | 22  |                    |                    |
 | 23  |                    |                    |
 | 24  |                    |                    |
